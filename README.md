@@ -1,15 +1,17 @@
-# Serverless Python Requirements
+# Lambda Python Requirements
+This is a fork of [serverless-python-requirements](https://github.com/UnitedIncome/serverless-python-requirements)
+for bundling Python requirements using the command line. This is useful
+for those who want to bundle Python dependencies without using
+[serverless](https://serverless.com/).
+I haven't implemented all of the functionality, only the parts that were
+useful for me:
+- Creating a zip of requirements based on `Pipfile` or `requirements.txt`
+- Using docker to ensure the requirements are built correclty for Lambda
 
-[![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
-[![CircleCI](https://circleci.com/gh/UnitedIncome/serverless-python-requirements.svg?style=shield)](https://circleci.com/gh/UnitedIncome/serverless-python-requirements)
-[![appveyor](https://ci.appveyor.com/api/projects/status/biel93xc535nxvi2?svg=true)](https://ci.appveyor.com/project/dschep/serverless-python-requirements)
-[![npm](https://img.shields.io/npm/v/serverless-python-requirements.svg)](https://www.npmjs.com/package/serverless-python-requirements)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+To use this run `npm link` and then `lambda-python-requirements -h` or
+run `node main.js -h`.
 
-A Serverless v1.x plugin to automatically bundle dependencies from
-`requirements.txt` and make them available in your `PYTHONPATH`.
-
-**Requires Serverless >= v1.12**
+---
 
 ## Install
 

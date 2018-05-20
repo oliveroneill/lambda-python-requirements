@@ -1,5 +1,5 @@
 {
-  "name": "serverless-python-requirements",
+  "name": "lambda-python-requirements",
   "version": "4.0.3",
   "engines": {
     "node": ">=6.0"
@@ -28,15 +28,17 @@
     "serverless.com"
   ],
   "files": [
-    "index.js",
+    "main.js",
     "lib/*.js",
     "LICENSE",
     "package.json",
     "unzip_requirements.py",
     "README.md"
   ],
-  "main": "index.js",
-  "bin": {},
+  "main": "main.js",
+  "bin": {
+    "lambda-python-requirements": "main.js"
+  },
   "scripts": {
     "test": "bats test.bats",
     "lint": "eslint *.js lib/*.js && prettier -l index.js lib/*.js || (echo need formatting ; exit 1)",
@@ -47,6 +49,7 @@
     "prettier": "*"
   },
   "dependencies": {
+    "argparse": "1.0.10",
     "bluebird": "^3.0.6",
     "fs-extra": "^6.0.0",
     "glob-all": "^3.1.0",
@@ -54,8 +57,8 @@
     "jszip": "^3.1.0",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
-    "lodash.values": "^4.3.0",
     "lodash.uniqby": "^4.0.0",
+    "lodash.values": "^4.3.0",
     "rimraf": "^2.6.2"
   },
   "eslintConfig": {
