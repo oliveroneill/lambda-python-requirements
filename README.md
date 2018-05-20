@@ -8,8 +8,8 @@ useful for me:
 - Creating a zip of requirements based on `Pipfile` or `requirements.txt`
 - Using docker to ensure the requirements are built correclty for Lambda
 
-To use this run `npm link` and then `lambda-python-requirements -h` or
-run `node main.js -h`.
+To use this run `npm link` and then `lambda-python-requirements` from within
+the directory with the `requirements.txt` file or a `Pipfile`.
 
 ---
 
