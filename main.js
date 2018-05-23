@@ -40,7 +40,7 @@ if (require.main === module) {
     '--dockerizePip',
     {
       help: 'Use a docker container to ensure dependencies are built correctly',
-      defaultValue: true,
+      defaultValue: false,
       nargs: 0
     }
   );
@@ -62,7 +62,7 @@ if (require.main === module) {
     [ '-z', '--zip' ],
     {
       help: 'Whether the bundled dependencies should be zipped',
-      defaultValue: true,
+      defaultValue: false,
       nargs: 0
     }
   );
@@ -86,6 +86,9 @@ if (require.main === module) {
   pipfileToRequirements.bind(this)();
   installAllRequirements.bind(this)();
   packRequirements.bind(this)();
-  // Clean up temporary directories
-  cleanupLambdaDirectory.bind(this)();
+  if (this.options.zip) {
+    // Clean up temporary directories if we're using zip option
+    // If not, the lambda directory is the output
+    cleanupLambdaDirectory.bind(this)();
+  }
 }
