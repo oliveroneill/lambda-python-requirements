@@ -13,7 +13,8 @@ const {
 } = require('./lib/zip');
 const { installAllRequirements } = require('./lib/pip');
 const { pipfileToRequirements } = require('./lib/pipenv');
-const { cleanup, cleanupLambdaDirectory } = require('./lib/clean');
+const { cleanup, postCleanupIfZipped } = require('./lib/clean');
+const { includeModuleCode } = require('./lib/module');
 
 if (require.main === module) {
   var parser = new ArgumentParser({
@@ -68,6 +69,7 @@ if (require.main === module) {
   );
   this.options = parser.parseArgs();
   this.servicePath = process.cwd();
+  this.outputDirectory = path.join(this.servicePath, 'pal');
   // Packages that should not be included in the bundle
   this.options.noDeploy = [
     'boto3',
@@ -81,14 +83,10 @@ if (require.main === module) {
     'setuptools'
   ];
   this.options.fileName = path.join(this.servicePath, 'requirements.txt');
-  // Cleanup any old requirements
   cleanup.bind(this)();
   pipfileToRequirements.bind(this)();
   installAllRequirements.bind(this)();
+  injectAllRequirements.bind(this)();
   packRequirements.bind(this)();
-  if (this.options.zip) {
-    // Clean up temporary directories if we're using zip option
-    // If not, the lambda directory is the output
-    cleanupLambdaDirectory.bind(this)();
-  }
+  postCleanupIfZipped.bind(this)();
 }
