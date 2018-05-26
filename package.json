@@ -35,9 +35,9 @@
     "unzip_requirements.py",
     "README.md"
   ],
-  "main": "main.js",
+  "main": "index.js",
   "bin": {
-    "lambda-python-requirements": "main.js"
+    "lambda-python-requirements": "index.js"
   },
   "scripts": {
     "test": "bats test.bats",

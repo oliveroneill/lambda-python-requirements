@@ -7,6 +7,7 @@
 const path = require('path');
 const process = require('process');
 const { ArgumentParser } = require('argparse');
+const BbPromise = require('bluebird');
 
 const {
   packRequirements
@@ -14,7 +15,7 @@ const {
 const { installAllRequirements } = require('./lib/pip');
 const { pipfileToRequirements } = require('./lib/pipenv');
 const { cleanup, postCleanupIfZipped } = require('./lib/clean');
-const { includeModuleCode } = require('./lib/module');
+const { injectAllRequirements } = require('./lib/inject');
 
 if (require.main === module) {
   var parser = new ArgumentParser({
@@ -69,7 +70,7 @@ if (require.main === module) {
   );
   this.options = parser.parseArgs();
   this.servicePath = process.cwd();
-  this.outputDirectory = path.join(this.servicePath, 'pal');
+  this.outputDirectory = 'pal';
   // Packages that should not be included in the bundle
   this.options.noDeploy = [
     'boto3',
@@ -83,10 +84,10 @@ if (require.main === module) {
     'setuptools'
   ];
   this.options.fileName = path.join(this.servicePath, 'requirements.txt');
-  cleanup.bind(this)();
-  pipfileToRequirements.bind(this)();
-  installAllRequirements.bind(this)();
-  injectAllRequirements.bind(this)();
-  packRequirements.bind(this)();
-  postCleanupIfZipped.bind(this)();
+  return BbPromise.bind(this)
+    .then(cleanup)
+    .then(pipfileToRequirements)
+    .then(installAllRequirements)
+    .then(packRequirements)
+    .then(postCleanupIfZipped);
 }

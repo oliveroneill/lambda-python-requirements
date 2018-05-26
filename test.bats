@@ -10,7 +10,7 @@ setup() {
 }
 
 teardown() {
-    rm -rf puck puck2 puck3 node_modules lambda requirements.zip .requirements-cache
+    rm -rf puck puck2 puck3 node_modules lambda package.zip .requirements-cache
     if [ -f serverless.yml.bak ]; then mv serverless.yml.bak serverless.yml; fi
 }
 
@@ -19,7 +19,7 @@ teardown() {
     npm i $(npm pack ../..)
     npm link
     lambda-python-requirements --dockerizePip
-    ls lambda/requirements/flask
+    ls pal/flask
 }
 
 @test "py3.6 can package flask with zip option" {
@@ -27,8 +27,8 @@ teardown() {
     npm i $(npm pack ../..)
     npm link
     lambda-python-requirements --zip --dockerizePip
-    unzip requirements.zip -d puck
-    ls requirements.zip
+    unzip package.zip -d puck
+    ls package.zip
     ls puck/flask
 }
 
@@ -37,27 +37,27 @@ teardown() {
     npm i $(npm pack ../..)
     npm link
     lambda-python-requirements --dockerizePip
-    ! ls lambda/requirements/boto3
+    ! ls pal/boto3
 }
 
 @test "pipenv py3.6 can package flask with default options" {
     cd tests/pipenv
     npm i $(npm pack ../..)
     lambda-python-requirements --usePipenv --dockerizePip
-    ls lambda/requirements/flask
+    ls pal/flask
 }
 
 @test "pipenv py3.6 can package flask with zip option" {
     cd tests/pipenv
     npm i $(npm pack ../..)
     lambda-python-requirements --zip --usePipenv --dockerizePip
-    unzip requirements.zip -d puck
-    ls requirements.zip
+    unzip package.zip -d puck
+    ls package.zip
 }
 
 @test "pipenv py3.6 doesn't package boto3 by default" {
     cd tests/pipenv
     npm i $(npm pack ../..)
     lambda-python-requirements --usePipenv --dockerizePip
-    ! ls lambda/requirements/boto3
+    ! ls pal/boto3
 }
