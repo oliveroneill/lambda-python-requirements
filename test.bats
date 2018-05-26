@@ -43,6 +43,7 @@ teardown() {
 @test "pipenv py3.6 can package flask with default options" {
     cd tests/pipenv
     npm i $(npm pack ../..)
+    npm link
     lambda-python-requirements --usePipenv --dockerizePip
     ls pal/flask
 }
@@ -50,6 +51,7 @@ teardown() {
 @test "pipenv py3.6 can package flask with zip option" {
     cd tests/pipenv
     npm i $(npm pack ../..)
+    npm link
     lambda-python-requirements --zip --usePipenv --dockerizePip
     unzip package.zip -d puck
     ls package.zip
@@ -58,6 +60,7 @@ teardown() {
 @test "pipenv py3.6 doesn't package boto3 by default" {
     cd tests/pipenv
     npm i $(npm pack ../..)
+    npm link
     lambda-python-requirements --usePipenv --dockerizePip
     ! ls pal/boto3
 }
