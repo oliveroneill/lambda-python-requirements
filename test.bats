@@ -10,8 +10,7 @@ setup() {
 }
 
 teardown() {
-    rm -rf puck puck2 puck3 node_modules lambda package.zip .requirements-cache
-    if [ -f serverless.yml.bak ]; then mv serverless.yml.bak serverless.yml; fi
+    rm -rf puck puck2 puck3 node_modules pal package.zip .requirements-cache
 }
 
 @test "py3.6 can package flask with default options" {
@@ -28,7 +27,6 @@ teardown() {
     npm link
     lambda-python-requirements --zip --dockerizePip
     unzip package.zip -d puck
-    ls package.zip
     ls puck/flask
 }
 
@@ -54,7 +52,7 @@ teardown() {
     npm link
     lambda-python-requirements --zip --usePipenv --dockerizePip
     unzip package.zip -d puck
-    ls package.zip
+    ls puck/flask
 }
 
 @test "pipenv py3.6 doesn't package boto3 by default" {
@@ -63,4 +61,38 @@ teardown() {
     npm link
     lambda-python-requirements --usePipenv --dockerizePip
     ! ls pal/boto3
+}
+
+@test "py3.6 cleans up pal directory with zip option" {
+    cd tests/base
+    npm i $(npm pack ../..)
+    npm link
+    lambda-python-requirements --zip --dockerizePip
+    ! ls pal/
+}
+
+@test "py3.6 can package handler with default options" {
+    cd tests/base
+    npm i $(npm pack ../..)
+    npm link
+    lambda-python-requirements --dockerizePip
+    ls pal/handler.py
+}
+
+@test "py3.6 can package handler with zip option" {
+    cd tests/base
+    npm i $(npm pack ../..)
+    npm link
+    lambda-python-requirements --zip --dockerizePip
+    unzip package.zip -d puck
+    ls puck/handler.py
+}
+
+@test "pipenv py3.6 can package handler with zip option" {
+    cd tests/pipenv
+    npm i $(npm pack ../..)
+    npm link
+    lambda-python-requirements --zip --usePipenv --dockerizePip
+    unzip package.zip -d puck
+    ls puck/handler.py
 }

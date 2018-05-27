@@ -88,6 +88,7 @@ if (require.main === module) {
     .then(cleanup)
     .then(pipfileToRequirements)
     .then(installAllRequirements)
+    .then(injectAllRequirements)
     .then(packRequirements)
     .then(postCleanupIfZipped);
 }
