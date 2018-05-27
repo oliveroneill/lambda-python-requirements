@@ -1,4 +1,4 @@
-# Lambda Python Requirements
+# pal - Python AWS Lambda utility
 This is a fork of [serverless-python-requirements](https://github.com/UnitedIncome/serverless-python-requirements)
 for bundling Python requirements using the command line. This is useful
 for those who want to bundle Python dependencies without using
@@ -8,8 +8,11 @@ useful for me:
 - Creating a zip of requirements based on `Pipfile` or `requirements.txt`
 - Using docker to ensure the requirements are built correclty for Lambda
 
-To use this run `npm link` and then `lambda-python-requirements` from within
-the directory with the `requirements.txt` file or a `Pipfile`.
+To use this run `npm link` and then `pal` from within
+the directory with the `requirements.txt` file or a `Pipfile`. It will output
+into a directory called `pal` or `package.zip` if using the zip option. This
+output will contain dependencies and scripts so that they can be easily
+uploaded to AWS.
 
 ---
 

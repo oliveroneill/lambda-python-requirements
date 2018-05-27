@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lambda-python-requirements": "file:lambda-python-requirements-4.0.3.tgz"
+    "lambda-python-requirements": "file:lambda-python-requirements-4.0.3.tgz",
+    "pal": "file:pal-4.0.3.tgz"
   }
 }

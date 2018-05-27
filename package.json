@@ -1,32 +1,16 @@
 {
-  "name": "lambda-python-requirements",
+  "name": "pal",
   "version": "4.0.3",
   "engines": {
     "node": ">=6.0"
   },
-  "description": "Serverless Python Requirements Plugin",
+  "description": "Python AWS Lambda packager",
   "author": "United Income <engineering@unitedincome.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/UnitedIncome/serverless-python-requirements"
+    "url": "https://github.com/oliveroneill/pal"
   },
-  "keywords": [
-    "serverless",
-    "python",
-    "requirements",
-    "pip",
-    "serverless framework plugin",
-    "serverless applications",
-    "serverless plugins",
-    "api gateway",
-    "lambda",
-    "aws",
-    "aws lambda",
-    "amazon",
-    "amazon web services",
-    "serverless.com"
-  ],
   "files": [
     "main.js",
     "lib/*.js",
@@ -37,7 +21,7 @@
   ],
   "main": "index.js",
   "bin": {
-    "lambda-python-requirements": "index.js"
+    "pal": "index.js"
   },
   "scripts": {
     "test": "bats test.bats",
